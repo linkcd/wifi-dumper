@@ -1,4 +1,5 @@
 #!/bin/bash
+echo "Start, checking environment variables..."
 
 # Check env variables
 if [[ -z "$INTERFACE_DEVICE_NAME" ]]; then
@@ -30,11 +31,16 @@ fi
 time_to_kill="${FORCE_KILL_TIME:-5s}"
 
 # Do it
+echo "Starting loop..."
 while true
 do
 	#start dumping
 	timestamp=$(date +"%Y-%m-%dT%H-%M-%S")
-	timeout -k $time_to_kill $REPORT_PERIOD airodump-ng $INTERFACE_DEVICE_NAME -b abg -w $timestamp --output-format csv 
+    
+    #Using  "&> /dev/null" to hide all outputs text and error, but checking result code "$?" to report error.
+    #If $? = 1, then airodump-ng reported an error (such as wlanX is not in monitor mode).To find detailed error, run airodump-ng directly in terminal to debug.
+    #If $? is NOT 1, then the code could be the result of timeout kill. In that case, the loop continues.
+    timeout -k $time_to_kill $REPORT_PERIOD airodump-ng $INTERFACE_DEVICE_NAME -b abg -w $timestamp --output-format csv &> /dev/null
     if [ $? -eq 1 ] 
     then 
         echo "Error when calling airodump-ng, exiting..." >&2
@@ -53,4 +59,6 @@ do
         exit 1
     fi
 done 
+
+echo "whole code exiting, error..."
 
