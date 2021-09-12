@@ -15,5 +15,3 @@ WORKDIR ./app
 
 CMD [ "bash", "app.sh" ]
 
-#docker run --net="host" --privileged -e REPORT_PERIOD="10s" -e INTERFACE_DEVICE_NAME="wlan1" -e FORCE_KILL_TIME="5s" -e S3_BUCKET_TARGET="<YOUR_OWN_VALUE>" -e AWS_ACCESS_KEY_ID="<YOUR_OWN_VALUE>" -e AWS_SECRET_ACCESS_KEY="<YOUR_OWN_VALUE>" <YOUR_IMAGE_NAME>
-

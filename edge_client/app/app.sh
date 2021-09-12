@@ -12,8 +12,13 @@ if [[ -z "$REPORT_PERIOD" ]]; then
     exit 1
 fi
 
-if [[ -z "$S3_BUCKET_TARGET" ]]; then
-    echo "Environment variable S3_BUCKET_TARGET is missing, exiting..." 1>&2
+if [[ -z "$S3_BUCKET_TARGET_AP" ]]; then
+    echo "Environment variable S3_BUCKET_TARGET_AP is missing, exiting..." 1>&2
+    exit 1
+fi
+
+if [[ -z "$S3_BUCKET_TARGET_CLIENT" ]]; then
+    echo "Environment variable S3_BUCKET_TARGET_CLIENT is missing, exiting..." 1>&2
     exit 1
 fi
 
@@ -47,10 +52,30 @@ do
         exit 1
     fi
 
-    fileName="$timestamp-01.csv"
-	echo "uploading $fileName to $S3_BUCKET_TARGET"
+    rawFileName="${timestamp}-01.csv"
 
-    aws s3 cp $fileName $S3_BUCKET_TARGET/$fileName 
+    # Split raw log file into AP and Client files
+    prefix="${rawFileName}__"
+    csplit -f $prefix $rawFileName '/Station MAC, First time seen, Last time seen, Power, # packets, BSSID, Probed ESSIDs/'
+
+    # Upload log file of AP
+    apTempFileName="${prefix}00"
+    apTargetFileName="${timestamp}_ap.csv" 
+
+    aws s3 cp $apTempFileName $S3_BUCKET_TARGET_AP/$apTargetFileName
+    if [ $? -eq 0 ] 
+    then 
+        echo "Uploaded successfully!" 
+    else 
+        echo "Could not upload to s3, exiting..." >&2
+        exit 1
+    fi
+
+    # Upload log file of client    
+    clientTempFileName="${prefix}01"
+    clientTargetFileName="${timestamp}_client.csv" 
+
+    aws s3 cp $clientTempFileName $S3_BUCKET_TARGET_CLIENT/$clientTargetFileName
     if [ $? -eq 0 ] 
     then 
         echo "Uploaded successfully!" 
