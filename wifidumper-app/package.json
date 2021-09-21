@@ -22,7 +22,10 @@
   },
   "dependencies": {
     "@aws-cdk/aws-lambda": "^1.123.0",
+    "@aws-cdk/aws-lambda-event-sources": "^1.123.0",
     "@aws-cdk/aws-s3": "^1.123.0",
+    "@aws-cdk/aws-s3-notifications": "^1.123.0",
+    "@aws-cdk/aws-sqs": "^1.123.0",
     "@aws-cdk/core": "1.123.0",
     "source-map-support": "^0.5.16"
   }
