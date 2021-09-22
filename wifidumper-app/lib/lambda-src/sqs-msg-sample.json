@@ -1,0 +1,132 @@
+{
+    "Records": [
+        {
+            "messageId": "beb2c007-ab3e-4bd7-8b74-36f41aef6504",
+            "receiptHandle": "AQEBvDrBQItoQjYIRFaoVqGwSG/i//T+fl+14HJciMpfKKWDrINURYsHgYgmtrMkXj9UGiNGI6y8GVRWx9JIX8OwGCOwavANW9O74Zwu2NZmZciCDQXhK01AKEJCAzdNzqBaqhR3amkTL/VWmp2m28UQppYXuqDI2CmmgmV9j2K+J7ZXiO8t04R4Xd5HnRBxgB3EzgLJl99uNsrGukX0a6r3V/8LEdZZBtjf4IKZbwWDgD8nReUr7ifpEbWSD+pXUwLNuE2EqSlWLntp+/+cH3jHtf3qWCioQTDhzMOBie0/UWEiQCWYeiAVU/LDiIVfw08i7kR3wG71VRv5J4F4enPROZF9wOiiVwjq0FD4nj1L1Li67UgyOf/g1Zezg/yTEwfRWR8TXTZGDAp+OQxh5MACp7X/aI/DmYAzGorOLpKnt3A=",
+            "body": "{\"Records\":[{\"eventVersion\":\"2.1\",\"eventSource\":\"aws:s3\",\"awsRegion\":\"eu-west-1\",\"eventTime\":\"2021-09-21T12:05:06.849Z\",\"eventName\":\"ObjectCreated:Put\",\"userIdentity\":{\"principalId\":\"AWS:AIDAX7HYTA6EAJGNLW25S\"},\"requestParameters\":{\"sourceIPAddress\":\"51.175.223.178\"},\"responseElements\":{\"x-amz-request-id\":\"2JFADVVND3NSV1KD\",\"x-amz-id-2\":\"R4+5tTvMvYRjGqPw5A6JSuJexebE6oLUD2gT7C8oTqkZi7AoQ1my48v6NWnQ701E6VxlIK8BbNDyFWFa4tZZ0lKSdopbCj6p\"},\"s3\":{\"s3SchemaVersion\":\"1.0\",\"configurationId\":\"arn:aws:cloudformation:eu-west-1:548129671048:stack/WifidumperAppStack/3913a560-1abe-11ec-99f8-020c098e9bd7-8298487483278075542\",\"bucket\":{\"name\":\"wifidumper\",\"ownerIdentity\":{\"principalId\":\"ABJ7G0BIR9KL5\"},\"arn\":\"arn:aws:s3:::wifidumper\"},\"object\":{\"key\":\"raw/ap/2021-09-21T11-35-09_ap.csv\",\"size\":8065,\"eTag\":\"8fbee92f9d0824c4ee3832ea2ddcdcd0\",\"sequencer\":\"006149CA7B93108BE4\"}}}]}",
+            "attributes": {
+                "ApproximateReceiveCount": "1713",
+                "SentTimestamp": "1632225916602",
+                "SenderId": "AIDAJQOC3SADRY5PEMBNW",
+                "ApproximateFirstReceiveTimestamp": "1632225916602"
+            },
+            "messageAttributes": {},
+            "md5OfBody": "a4939eb8bf428893abeb3310d7b5bb14",
+            "eventSource": "aws:sqs",
+            "eventSourceARN": "arn:aws:sqs:eu-west-1:548129671048:wifidumper-s3-newlog-event-queue",
+            "awsRegion": "eu-west-1"
+        },
+        {
+            "messageId": "942bffa2-8d97-414c-92b1-c8c6f96f9093",
+            "receiptHandle": "AQEB3QyLDBsLX7iydXbJGqUkzGQi3usm3CFQYo4kyxRg+aE5BY7cdf2zpE4x4ft/EkPeiG3/c87A5soshsIUglLLeMhpxJkWLOhLmObjiqLZLmkdAcykppzSmT1Zvs8nd+NGx3RDQFx5YlzngSCEIcE8FOg85qtkI4VQ4B6XMiyzxjUDf4Xwko0vByqx8Tj5u/uz9viC7sj6aaTUNhla0QA55lcTEkRP/D7A4pftWpgSMM2eqvXpOoD/w3P688lcC2CfzM8gblCPmHAdmNU1OZiJ0mXHDC91KLshYK7vTjjgKyWwzWu1ond88GCs1JiKjpromZ/9LC9bg7kZpgn570UwwWSzqws4Zg1sJodvlQI+EjlpeNJUyCEYr5RJqA+G9DCZYPiWTPNtaWquybGMnVjpQR7LnUtfIEDdUAF8jAbyisw=",
+            "body": "{\"Records\":[{\"eventVersion\":\"2.1\",\"eventSource\":\"aws:s3\",\"awsRegion\":\"eu-west-1\",\"eventTime\":\"2021-09-21T19:08:23.134Z\",\"eventName\":\"ObjectCreated:Put\",\"userIdentity\":{\"principalId\":\"AWS:AIDAX7HYTA6EAJGNLW25S\"},\"requestParameters\":{\"sourceIPAddress\":\"51.175.223.178\"},\"responseElements\":{\"x-amz-request-id\":\"NXF4KB1PB13QCYMA\",\"x-amz-id-2\":\"fZ4uD+66CP29SlKW+FFAPXgh9z0oryEsBYxho05GXe/CXN/I5MDpR7QFaFuZPKX4enCf0rzn3ErOcyx4mLBVh6/nhGfC62Eu\"},\"s3\":{\"s3SchemaVersion\":\"1.0\",\"configurationId\":\"arn:aws:cloudformation:eu-west-1:548129671048:stack/WifidumperAppStack/3913a560-1abe-11ec-99f8-020c098e9bd7-8298487483278075542\",\"bucket\":{\"name\":\"wifidumper\",\"ownerIdentity\":{\"principalId\":\"ABJ7G0BIR9KL5\"},\"arn\":\"arn:aws:s3:::wifidumper\"},\"object\":{\"key\":\"raw/ap/2021-09-21T18-38-22_ap.csv\",\"size\":7772,\"eTag\":\"fe4aa2dadf4e6d590b5ea59f079385ec\",\"sequencer\":\"00614A2DACB854CC10\"}}}]}",
+            "attributes": {
+                "ApproximateReceiveCount": "1290",
+                "SentTimestamp": "1632251310223",
+                "SenderId": "AIDAJQOC3SADRY5PEMBNW",
+                "ApproximateFirstReceiveTimestamp": "1632251310223"
+            },
+            "messageAttributes": {},
+            "md5OfBody": "a290c85b7b431a0dc5ccc5b5f10d0f82",
+            "eventSource": "aws:sqs",
+            "eventSourceARN": "arn:aws:sqs:eu-west-1:548129671048:wifidumper-s3-newlog-event-queue",
+            "awsRegion": "eu-west-1"
+        },
+        {
+            "messageId": "2da9e7fa-8149-4b15-810a-8d3359ae67fc",
+            "receiptHandle": "AQEBraRIu0Vq80aCLqbX1SE4OlWVC+mf8S3UqcKAObmKSHXBJZVUDgBJJxmqbY5xYA00j5jE6FWX2egbIFfQbB06+wfbn44PfH3f0ra0u5ByvAlX826bjEA5fEAmwmmyH9JSJ5IEytTDzbjPrT4bqPIhafpxxF18JhNrlQJQpdFpacyzCJly8vOozz7Fds1H3Te6I0t3IuQfKr4bjw06lY3PMdT695c5nNhwXts7AEMu6I7ZBbYcHq23ZRYIFWU0aNYkh/Vq2DNrene8sk0OAQ2+dFsP4wyQ9YyrlPQV0cdWqtb5lvxK3GpgFF+V2SRZIbBGhos2EnZ2pQLDi9vmUDh2D78bv4PFwC3K8YpdF9AYY3Sjjz+EXQJMFQ38VDVDTmnSJSX4HKG1nafuGlkfk0ePSqYxA4L5exRzDMDuBIqJQ8c=",
+            "body": "{\"Records\":[{\"eventVersion\":\"2.1\",\"eventSource\":\"aws:s3\",\"awsRegion\":\"eu-west-1\",\"eventTime\":\"2021-09-21T15:06:36.747Z\",\"eventName\":\"ObjectCreated:Put\",\"userIdentity\":{\"principalId\":\"AWS:AIDAX7HYTA6EAJGNLW25S\"},\"requestParameters\":{\"sourceIPAddress\":\"51.175.223.178\"},\"responseElements\":{\"x-amz-request-id\":\"JH32M1YXXF4AG4DD\",\"x-amz-id-2\":\"ctgmSptTwbKRJKNiQa9sAfL09EbPLS4p2rjBS9kkla00vbP9/rcmT35ADGYhM3fJP76OyuipvNLAkdipWnfvH42xeUooVbpf\"},\"s3\":{\"s3SchemaVersion\":\"1.0\",\"configurationId\":\"arn:aws:cloudformation:eu-west-1:548129671048:stack/WifidumperAppStack/3913a560-1abe-11ec-99f8-020c098e9bd7-8298487483278075542\",\"bucket\":{\"name\":\"wifidumper\",\"ownerIdentity\":{\"principalId\":\"ABJ7G0BIR9KL5\"},\"arn\":\"arn:aws:s3:::wifidumper\"},\"object\":{\"key\":\"raw/ap/2021-09-21T14-36-32_ap.csv\",\"size\":8947,\"eTag\":\"1b47e3345799d9d067c789622218d12a\",\"sequencer\":\"006149F4FE77D08B54\"}}}]}",
+            "attributes": {
+                "ApproximateReceiveCount": "1532",
+                "SentTimestamp": "1632236799634",
+                "SenderId": "AIDAJQOC3SADRY5PEMBNW",
+                "ApproximateFirstReceiveTimestamp": "1632236799634"
+            },
+            "messageAttributes": {},
+            "md5OfBody": "92332a178e323313ce4421d8ed97e18d",
+            "eventSource": "aws:sqs",
+            "eventSourceARN": "arn:aws:sqs:eu-west-1:548129671048:wifidumper-s3-newlog-event-queue",
+            "awsRegion": "eu-west-1"
+        },
+        {
+            "messageId": "3a4336ec-9ac9-44ca-9b74-2279f02da4f4",
+            "receiptHandle": "AQEBTtXOzmAPYnnxyIKSQFTp2VTJESJ9YxeSdjFr+rd/gADlQmM6/pgJpbVTxaNiWhRD3zgusZSYUZUivxmSVhlkk+QVIyPVo1GBhtk4ZvDbsmmm4A6PFWlG4nAKW2jFfyISAJSFismdMr1OmGGOXtppXbZeHK60Hxgrfs5JvKOMSirXoPOhXNEUaKBZhYHQ9MyRjvuvMgBqJ2bENQWcLFhhgsd9AE1QBGnXHXF9rM1nH7aiseBFVF2s98cYvk92wlqPRoYjWTIfu5wvTt/tGKBlu1K8ZP2Tu96bgoiACmBCA7X89EEQutanExYI+08pQXAZERSuUSmzlYim1r5zueWe6h3EBqZph6UJGbRWz70D4Kg0VlljuuB80aQCoEaf3cuZuGInAuCxlAvEUO2ynMvIfVnwGuSbSh8R1BN9HoWEDWY=",
+            "body": "{\"Records\":[{\"eventVersion\":\"2.1\",\"eventSource\":\"aws:s3\",\"awsRegion\":\"eu-west-1\",\"eventTime\":\"2021-09-22T10:45:26.073Z\",\"eventName\":\"ObjectCreated:Put\",\"userIdentity\":{\"principalId\":\"AWS:AIDAX7HYTA6EAJGNLW25S\"},\"requestParameters\":{\"sourceIPAddress\":\"51.175.223.178\"},\"responseElements\":{\"x-amz-request-id\":\"DVC84AVVHCEECBZQ\",\"x-amz-id-2\":\"w74Zj7rB+U5lUJsFsXV7Zv2JZLtuinXATIdjpKDmoWaKMHYiap2TUJrZHh3q+vAI4sibc2+Ce9ZWe7KCDdQEFHSkrl2JFgHn\"},\"s3\":{\"s3SchemaVersion\":\"1.0\",\"configurationId\":\"arn:aws:cloudformation:eu-west-1:548129671048:stack/WifidumperAppStack/3913a560-1abe-11ec-99f8-020c098e9bd7-8298487483278075542\",\"bucket\":{\"name\":\"wifidumper\",\"ownerIdentity\":{\"principalId\":\"ABJ7G0BIR9KL5\"},\"arn\":\"arn:aws:s3:::wifidumper\"},\"object\":{\"key\":\"raw/ap/2021-09-22T10-15-33_ap.csv\",\"size\":8382,\"eTag\":\"48746a3819821acb18878f9038bb8c59\",\"sequencer\":\"00614B09538E543916\"}}}]}",
+            "attributes": {
+                "ApproximateReceiveCount": "353",
+                "SentTimestamp": "1632307541612",
+                "SenderId": "AIDAJQOC3SADRY5PEMBNW",
+                "ApproximateFirstReceiveTimestamp": "1632307541612"
+            },
+            "messageAttributes": {},
+            "md5OfBody": "479001036bec9a237d6d729f4dfcf17b",
+            "eventSource": "aws:sqs",
+            "eventSourceARN": "arn:aws:sqs:eu-west-1:548129671048:wifidumper-s3-newlog-event-queue",
+            "awsRegion": "eu-west-1"
+        },
+        {
+            "messageId": "e19c34af-2577-4a8c-8c02-cdf0b1081941",
+            "receiptHandle": "AQEBxpJdNOYD464DsIUGvz++wO4MWtUhwfveQLumM2G050Lwws4jNA8VQQ1bIrb42QMjDbX/9cQLagJzAoeebD1nBjcM7u4eqdEtjCJrawbL8KUol9Gf4UX0uzv6N6ysKmz0tSUCj8jb+CnZC8bbK6etSsMrloGhhhZGg5Gx4h0sYY/5KLVWeE3zr8MME0p5D7TOWVb1yMRnmmq+qmIszTQWZ/T+hqThEkgclQNFHdLs62gHMHc5wWCaTAZkOBWraPrhd+9bMBcUjhUtWKAEnS5RtyDxonDRvQC1FOXfBFCCiQPXwbJ23dMJS2Y8bDWj7J5tYaziBuyRcl7LF5geDEH0UI2lzUGdDKw97RRQQSf5qq3SyL60aTodkRyUQ06HZ86/rpEPX056GIr0jpRDv0Wf6a8s0Mua0+tKCujH2ORzXRs=",
+            "body": "{\"Records\":[{\"eventVersion\":\"2.1\",\"eventSource\":\"aws:s3\",\"awsRegion\":\"eu-west-1\",\"eventTime\":\"2021-09-22T02:41:57.277Z\",\"eventName\":\"ObjectCreated:Put\",\"userIdentity\":{\"principalId\":\"AWS:AIDAX7HYTA6EAJGNLW25S\"},\"requestParameters\":{\"sourceIPAddress\":\"51.175.223.178\"},\"responseElements\":{\"x-amz-request-id\":\"0BGZ7QM39RVFZXBS\",\"x-amz-id-2\":\"mTqDHekkwFpqQKbNCw+OIgLD2BrkELYzfhJGeYAunGX8fIaMvB0fuoeLm18scFBuFNzPp9uUtX9rKvMseDXvjS4lgianZtQ3\"},\"s3\":{\"s3SchemaVersion\":\"1.0\",\"configurationId\":\"arn:aws:cloudformation:eu-west-1:548129671048:stack/WifidumperAppStack/3913a560-1abe-11ec-99f8-020c098e9bd7-8298487483278075542\",\"bucket\":{\"name\":\"wifidumper\",\"ownerIdentity\":{\"principalId\":\"ABJ7G0BIR9KL5\"},\"arn\":\"arn:aws:s3:::wifidumper\"},\"object\":{\"key\":\"raw/ap/2021-09-22T02-11-52_ap.csv\",\"size\":8627,\"eTag\":\"7db089b016c2cbe0e54c003169232602\",\"sequencer\":\"00614A97F6BCF7736A\"}}}]}",
+            "attributes": {
+                "ApproximateReceiveCount": "836",
+                "SentTimestamp": "1632278520195",
+                "SenderId": "AIDAJQOC3SADRY5PEMBNW",
+                "ApproximateFirstReceiveTimestamp": "1632278520195"
+            },
+            "messageAttributes": {},
+            "md5OfBody": "801537822e11735048cd4652d1c75cb3",
+            "eventSource": "aws:sqs",
+            "eventSourceARN": "arn:aws:sqs:eu-west-1:548129671048:wifidumper-s3-newlog-event-queue",
+            "awsRegion": "eu-west-1"
+        },
+        {
+            "messageId": "95880c48-b60d-423a-92e0-44b8a5b37fec",
+            "receiptHandle": "AQEBLua3w/+U5gnIWFmhCc7vY3dwK0quRaYVuP7rCTu8ChTrXHtDqJ0qlidt+MfxwlS+JW/g6lZPtfGhae3HcET6agI9DBVL1l9gJePuOqoGS9B1ycoA/zviGWZBw3WHEeBW1j8dWjEyeALFmWTP3Ax7XG4Ieve4Y00zQ+6KqIkKd9RTX7aGtP5sRAq+EhRhy2HAuTEstK4o62+mHWhkjRhX/e+gKnGER19JLEzQ4zV49/m2SQ22aQwQo14rcF+nEY8kKK5rr+584fo0OS9Uk7OJzH6SDYdfoMt+Jw+QakK63U62+WrT8j/N+BJwOvrkbLnoOtx+7hV40vOlqLUcy2S8ToVCaWZEF94I1PbeEgNyfNAHE0aDYf1wiN9k1J49fN1IXWmPlXBHkd46K35IrOER2LFmyrsF/IZ47ntQJYnfFbM=",
+            "body": "{\"Records\":[{\"eventVersion\":\"2.1\",\"eventSource\":\"aws:s3\",\"awsRegion\":\"eu-west-1\",\"eventTime\":\"2021-09-22T16:18:05.165Z\",\"eventName\":\"ObjectCreated:Put\",\"userIdentity\":{\"principalId\":\"AWS:AIDAX7HYTA6EAJGNLW25S\"},\"requestParameters\":{\"sourceIPAddress\":\"51.175.223.178\"},\"responseElements\":{\"x-amz-request-id\":\"VDDWCWXC6JZ4YH4F\",\"x-amz-id-2\":\"GzZz1wMyDirwSJzATivkDPfNm7PQaI3z9Oqm99DE+QmDMFEU3gqAnSp/jhs3uxGFHpmq8eAzbUJ2OZ68ncCgnUMIN8roNuPh\"},\"s3\":{\"s3SchemaVersion\":\"1.0\",\"configurationId\":\"arn:aws:cloudformation:eu-west-1:548129671048:stack/WifidumperAppStack/3913a560-1abe-11ec-99f8-020c098e9bd7-8298487483278075542\",\"bucket\":{\"name\":\"wifidumper\",\"ownerIdentity\":{\"principalId\":\"ABJ7G0BIR9KL5\"},\"arn\":\"arn:aws:s3:::wifidumper\"},\"object\":{\"key\":\"raw/ap/2021-09-22T15-48-03_ap.csv\",\"size\":7917,\"eTag\":\"42b74748a8d66667047f6701d23c277d\",\"sequencer\":\"00614B574256A1596B\"}}}]}",
+            "attributes": {
+                "ApproximateReceiveCount": "20",
+                "SentTimestamp": "1632327491742",
+                "SenderId": "AIDAJQOC3SADRY5PEMBNW",
+                "ApproximateFirstReceiveTimestamp": "1632327491742"
+            },
+            "messageAttributes": {},
+            "md5OfBody": "42c496c39438fcea7413f7378549feec",
+            "eventSource": "aws:sqs",
+            "eventSourceARN": "arn:aws:sqs:eu-west-1:548129671048:wifidumper-s3-newlog-event-queue",
+            "awsRegion": "eu-west-1"
+        },
+        {
+            "messageId": "c8dbc95f-0a65-41ae-83e1-611c898e43dc",
+            "receiptHandle": "AQEB98VxG0K31xK6cxh83v3YDW+qkbHns6Sh+LFB9m48FqKhvO0aLLdCyynA80q8m5tZoZYN28uhiCM1oUk+EiCsgaVIoZ+ahjfLN9Hdxq5GET6xpjP2BhjR1oW534EosfREUFXeK8SF9n/ewXkeiqQ4mBriU9cq9C9YQbzz2wn3D8T8UxN9U2oxEUtwsB7JTaZrdfPWDwHSbbLDJrITaUvKYF0LZR8ImRR0IGnwV6mKud5+z4wL+NA0mP4ZoyAHGDP57YgQ4J2WSZxkP7RWaIOnQdrHsISsHzkokA0YxJMoNFkykYpg/GmudXymCx7CLoqLxmoHt1KuoCwCjlJiQ99xnBosktH5C8iEsyUUqlEPJk8/aYkNzTUVnOe/8H0V7TrJayClhj6cwKvNflkgLZQVTydXBKtw5Uf+kvxaloWCnWI=",
+            "body": "{\"Records\":[{\"eventVersion\":\"2.1\",\"eventSource\":\"aws:s3\",\"awsRegion\":\"eu-west-1\",\"eventTime\":\"2021-09-22T10:15:11.586Z\",\"eventName\":\"ObjectCreated:Put\",\"userIdentity\":{\"principalId\":\"AWS:AIDAX7HYTA6EAJGNLW25S\"},\"requestParameters\":{\"sourceIPAddress\":\"51.175.223.178\"},\"responseElements\":{\"x-amz-request-id\":\"3GVFXVRKQMYF5Q8C\",\"x-amz-id-2\":\"NhhJknV3617SSDJpDUeFl3LTdYH2OMnargzmmlg5P9AodGX59xakslenaHJX1aEb+lav9emlzf7jn30whxDEb5N5wualsEWH\"},\"s3\":{\"s3SchemaVersion\":\"1.0\",\"configurationId\":\"arn:aws:cloudformation:eu-west-1:548129671048:stack/WifidumperAppStack/3913a560-1abe-11ec-99f8-020c098e9bd7-8298487483278075542\",\"bucket\":{\"name\":\"wifidumper\",\"ownerIdentity\":{\"principalId\":\"ABJ7G0BIR9KL5\"},\"arn\":\"arn:aws:s3:::wifidumper\"},\"object\":{\"key\":\"raw/ap/2021-09-22T09-45-19_ap.csv\",\"size\":8298,\"eTag\":\"2c8c4dbc14ec9fbcb3deabe8034afd32\",\"sequencer\":\"00614B023DC0AC9583\"}}}]}",
+            "attributes": {
+                "ApproximateReceiveCount": "383",
+                "SentTimestamp": "1632305726906",
+                "SenderId": "AIDAJQOC3SADRY5PEMBNW",
+                "ApproximateFirstReceiveTimestamp": "1632305726906"
+            },
+            "messageAttributes": {},
+            "md5OfBody": "46b46ade0ea20ecb7fb8f1dc8dca3373",
+            "eventSource": "aws:sqs",
+            "eventSourceARN": "arn:aws:sqs:eu-west-1:548129671048:wifidumper-s3-newlog-event-queue",
+            "awsRegion": "eu-west-1"
+        },
+        {
+            "messageId": "e52eb8dc-949e-4937-ab03-9fbe7ef77b4c",
+            "receiptHandle": "AQEBugoM8WxlvuEyhxZ9HNCJHHPxOf9YXuKcTOlsiKzkEOQD9pfCyFtK4HcIZ/N1V7Sy+iQl7vzEMc2EArbV993C2+dxk2cHKcM0wKUFth7Ij0VP+2Adr+aLEKuD6NsHjaJnaMHM/9q+OMRumVIw43f6pVgsvbsovupW/DFIxzi061dvvdGzuGn4OrRPUmX02tLedEF4EL1thVnIuZKNDzgKRjOLGYGlLMqciXFftiGm16WSI0CKgjGvdEOBODiXzx6MDFGPtF5uOMv0obWrGw47/Jo+blLtfT9KrlTrWpFu7w/iqgD1O72aQHAD0CjM48typpkiqDo+sZOzpb5yvYS8U0C5s4pi0PqezbOcsMYMex+O2s22LFLhkvBDLBPCzrmmoGH3jxvdtBNsCheJKI3bI+9QDRITqLhqwRIhEbr+KGw=",
+            "body": "{\"Records\":[{\"eventVersion\":\"2.1\",\"eventSource\":\"aws:s3\",\"awsRegion\":\"eu-west-1\",\"eventTime\":\"2021-09-22T12:46:32.515Z\",\"eventName\":\"ObjectCreated:Put\",\"userIdentity\":{\"principalId\":\"AWS:AIDAX7HYTA6EAJGNLW25S\"},\"requestParameters\":{\"sourceIPAddress\":\"51.175.223.178\"},\"responseElements\":{\"x-amz-request-id\":\"5ADFNGXZEWT9FBJ1\",\"x-amz-id-2\":\"Wie8i0gla0SuwE1SIItU0vTkJkkYtzrBO5wnn2Iiq5lh1NXMmNhAnfPF+3787V/jizYWUI4NgPK+/wN65kEMvZrTzTNmq9wu\"},\"s3\":{\"s3SchemaVersion\":\"1.0\",\"configurationId\":\"arn:aws:cloudformation:eu-west-1:548129671048:stack/WifidumperAppStack/3913a560-1abe-11ec-99f8-020c098e9bd7-8298487483278075542\",\"bucket\":{\"name\":\"wifidumper\",\"ownerIdentity\":{\"principalId\":\"ABJ7G0BIR9KL5\"},\"arn\":\"arn:aws:s3:::wifidumper\"},\"object\":{\"key\":\"raw/ap/2021-09-22T12-16-27_ap.csv\",\"size\":7905,\"eTag\":\"15eaef5ba52e75712d67ca656965ffa7\",\"sequencer\":\"00614B25A9DF47B11D\"}}}]}",
+            "attributes": {
+                "ApproximateReceiveCount": "232",
+                "SentTimestamp": "1632314795567",
+                "SenderId": "AIDAJQOC3SADRY5PEMBNW",
+                "ApproximateFirstReceiveTimestamp": "1632314795567"
+            },
+            "messageAttributes": {},
+            "md5OfBody": "c870d219efb6f90e5d9cf28c6106d2a8",
+            "eventSource": "aws:sqs",
+            "eventSourceARN": "arn:aws:sqs:eu-west-1:548129671048:wifidumper-s3-newlog-event-queue",
+            "awsRegion": "eu-west-1"
+        }
+    ]
+}
