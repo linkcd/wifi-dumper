@@ -29,11 +29,22 @@ export class WifidumperAppStack extends cdk.Stack {
       removalPolicy: cdk.RemovalPolicy.RETAIN
     });
 
+    // Send things to me if you don't know what to do with it.
+    const deadLetterQueue = new sqs.Queue(this, "wifidumperdlq", {
+      queueName: "wifidumperdlq",
+      removalPolicy: cdk.RemovalPolicy.DESTROY,
+      retentionPeriod: Duration.days(14)
+    });
+
     // SQS for AP
     const newWifidumperLogEventQueue = new sqs.Queue(this, "wifidumper-s3-newlog-event-queue", {
       queueName: "wifidumper-s3-newlog-event-queue",
       removalPolicy: cdk.RemovalPolicy.DESTROY,
-      visibilityTimeout: Duration.minutes(1)
+      visibilityTimeout: Duration.minutes(1),
+      deadLetterQueue: {
+        maxReceiveCount: 3,
+        queue: deadLetterQueue
+      }
     });
     
     // set up trigger from s3 new object to sqs 
