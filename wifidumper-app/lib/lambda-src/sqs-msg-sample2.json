@@ -1,0 +1,38 @@
+{
+  "Records": [
+    {
+      "eventVersion": "2.1",
+      "eventSource": "aws:s3",
+      "awsRegion": "eu-west-1",
+      "eventTime": "2021-09-23T03:23:11.292Z",
+      "eventName": "ObjectCreated:Put",
+      "userIdentity": {
+        "principalId": "AWS:AIDAX7HYTA6EAJGNLW25S"
+      },
+      "requestParameters": {
+        "sourceIPAddress": "51.175.223.178"
+      },
+      "responseElements": {
+        "x-amz-request-id": "SA9WV2TGAXQHA0S1",
+        "x-amz-id-2": "m0G0Uh47WtbSAmRJTUroCrdui/0roQYs+6sEKoAQkHc7wgoDq6ZNbc3bMnMzioDNe0Clunx3Xvi9yCkGKX06X7cR6Cx3SgM6"
+      },
+      "s3": {
+        "s3SchemaVersion": "1.0",
+        "configurationId": "arn:aws:cloudformation:eu-west-1:548129671048:stack/WifidumperAppStack/eb568860-1bda-11ec-b829-0a6e3a802a89-2348027430650944313",
+        "bucket": {
+          "name": "wifidumper",
+          "ownerIdentity": {
+            "principalId": "ABJ7G0BIR9KL5"
+          },
+          "arn": "arn:aws:s3:::wifidumper"
+        },
+        "object": {
+          "key": "raw/ap/2021-09-23T02-53-09_ap.csv",
+          "size": 7336,
+          "eTag": "17933bd0e6759d9e40580b91d7805dd5",
+          "sequencer": "00614BF3237EAF7899"
+        }
+      }
+    }
+  ]
+}

@@ -92,7 +92,9 @@ def get_short_live_df(clean_df, report_df, key_column):
     return short_live_df
 
 def update_report_to_s3(report_df, key):
-    print("Saving report to:", key)
+    if len(report_df) < 1:
+        print("Empty data frame, skip saving...")
+        return
 
     wr.s3.to_parquet(
         df=report_df,
@@ -101,3 +103,4 @@ def update_report_to_s3(report_df, key):
         mode="append"#,
         #partition_cols=partition_cols
     )
+    print("Saved report to:", key)
