@@ -13,8 +13,6 @@ export class WifidumperAppStack extends cdk.Stack {
     super(scope, id, props);
 
     const RAW_DATA_S3_BUCKET = 'wifidumper';
-    const RAW_DATA_PATH_FOR_AP = "raw/ap/";
-
     const RESULT_DATA_S3_BUCKET = 'wifidumper-result'
 
     // S3 source and target
@@ -29,7 +27,8 @@ export class WifidumperAppStack extends cdk.Stack {
       removalPolicy: cdk.RemovalPolicy.RETAIN
     });
 
-    // Send things to me if you don't know what to do with it.
+    // SQS PART
+    // dead queue for both AP Queue and Client Queue
     const deadLetterQueue = new sqs.Queue(this, "wifidumperdlq", {
       queueName: "wifidumperdlq",
       removalPolicy: cdk.RemovalPolicy.DESTROY,
@@ -37,8 +36,8 @@ export class WifidumperAppStack extends cdk.Stack {
     });
 
     // SQS for AP
-    const newWifidumperLogEventQueue = new sqs.Queue(this, "wifidumper-s3-newlog-event-queue", {
-      queueName: "wifidumper-s3-newlog-event-queue",
+    const APFileUploadedEventQueue = new sqs.Queue(this, "wifidumper-ap-file-upload-event-queue", {
+      queueName: "wifidumper-ap-file-upload-event-queue",
       removalPolicy: cdk.RemovalPolicy.DESTROY,
       visibilityTimeout: Duration.minutes(1),
       deadLetterQueue: {
@@ -46,20 +45,40 @@ export class WifidumperAppStack extends cdk.Stack {
         queue: deadLetterQueue
       }
     });
-    
-    // set up trigger from s3 new object to sqs 
+
+    // SQS for Client
+    const ClientFileUploadedEventQueue = new sqs.Queue(this, "wifidumper-client-file-upload-event-queue", {
+      queueName: "wifidumper-client-file-upload-event-queue",
+      removalPolicy: cdk.RemovalPolicy.DESTROY,
+      visibilityTimeout: Duration.minutes(1),
+      deadLetterQueue: {
+        maxReceiveCount: 3,
+        queue: deadLetterQueue
+      }
+    });
+
+
+  
+    // set up triggers from s3 new object to sqs 
+    // AP 
     rawDataS3Bucket.addEventNotification(
       s3.EventType.OBJECT_CREATED,
-      new s3n.SqsDestination(newWifidumperLogEventQueue),
-      {prefix: RAW_DATA_PATH_FOR_AP}
+      new s3n.SqsDestination(APFileUploadedEventQueue),
+      {prefix: "raw/ap/" }
     );
 
-    // Lambda for AP
+    // Client 
+    rawDataS3Bucket.addEventNotification(
+      s3.EventType.OBJECT_CREATED,
+      new s3n.SqsDestination(ClientFileUploadedEventQueue),
+      {prefix: "raw/client/" }
+    );
+
     const dockerfile = path.join(__dirname, "lambda-src");
-    const ap_handler = new lambda.DockerImageFunction(this, "process-ap-rawdata-lambda", {
-      functionName: "Wifidumper-process-ap-rawdata",
-      code: lambda.DockerImageCode.fromImageAsset(dockerfile , {
-        repositoryName : "process-ap-data-lambda-images", 
+    // Lambda for AP
+    const APHandler = new lambda.DockerImageFunction(this, "Wifidumper-process-ap-lambda", {
+      functionName: "Wifidumper-process-ap-lambda",
+      code: lambda.DockerImageCode.fromImageAsset(dockerfile , { 
         file: "Dockerfile-ap"
       }),
       memorySize: 256,
@@ -69,17 +88,37 @@ export class WifidumperAppStack extends cdk.Stack {
         "CHECK_TIME_FREQ" : "15T", //default 15min, 50% of data source freq, to avoid missing point in report
         "MAIN_REPORT_OUTPUT_KEY": "timeline-reports/ap.parquet", 
         "SHORT_LIVE_REPORT_OUTPUT_KEY" : "timeline-reports/ap_shortlive.parquet"
+      }
+    });
 
+    // Lambda for Client
+    const ClientHandler = new lambda.DockerImageFunction(this, "Wifidumper-process-client-lambda", {
+      functionName: "Wifidumper-process-client-lambda",
+      code: lambda.DockerImageCode.fromImageAsset(dockerfile , { 
+        file: "Dockerfile-client"
+      }),
+      memorySize: 256,
+      timeout: Duration.minutes(1),
+      environment :{
+        "RESULT_DATA_S3_BUCKET" : RESULT_DATA_S3_BUCKET,
+        "CHECK_TIME_FREQ" : "10T", //default 15min if not override here
+        "MAIN_REPORT_OUTPUT_KEY": "timeline-reports/client.parquet", 
+        "SHORT_LIVE_REPORT_OUTPUT_KEY" : "timeline-reports/client_shortlive.parquet"
       }
     });
 
     // setup AP lambda for handling sqs events
-    const eventSource = new lambdaEventSources.SqsEventSource(newWifidumperLogEventQueue);
-    ap_handler.addEventSource(eventSource);
+    const APEventSource = new lambdaEventSources.SqsEventSource(APFileUploadedEventQueue);
+    APHandler.addEventSource(APEventSource);
+
+    const ClientEventSource = new lambdaEventSources.SqsEventSource(ClientFileUploadedEventQueue);
+    ClientHandler.addEventSource(ClientEventSource);
 
     // Permission of AP lambda to s3
-    rawDataS3Bucket.grantRead(ap_handler);
-    resultS3Bucket.grantReadWrite(ap_handler);
+    rawDataS3Bucket.grantRead(APHandler);
+    resultS3Bucket.grantReadWrite(APHandler);
+    rawDataS3Bucket.grantRead(ClientHandler);
+    resultS3Bucket.grantReadWrite(ClientHandler);
 
 
 
