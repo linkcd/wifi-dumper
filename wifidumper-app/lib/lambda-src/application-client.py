@@ -80,7 +80,7 @@ def handler(event, context):
 
         client_df_raw = get_raw_df(bucket, key)
 
-        clean_df = get_client_clean_df(raw_df)
+        clean_df = get_client_clean_df(client_df_raw)
         report_df = get_report_df(clean_df, CHECK_TIME_FREQ)
         shortlive_report_df = get_short_live_df(clean_df, report_df, 'clientmac')
 
