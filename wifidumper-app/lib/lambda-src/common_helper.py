@@ -104,3 +104,27 @@ def update_report_to_s3(report_df, key):
         #partition_cols=partition_cols
     )
     print("Saved report to:", key)
+
+def save_df_to_timestream(df, measure_names_list, common_dimensions_cols_list, ts_db_name, ts_table_name):
+    total_rejected_records = []
+    
+    for mn in measure_names_list:
+        
+        needed_col =common_dimensions_cols
+        needed_col.append(mn)
+        needed_df = df.copy()[needed_col].drop_duplicates()
+        print("Saving to timestream db with measure name:", mn, "--- Dataframe count:", len(needed_df))
+        
+        rejected_records = wr.timestream.write(
+                                df=needed_df,
+                                database=ts_db_name,
+                                table=ts_table_name,
+                                time_col="check_time",
+                                measure_col=mn,
+                                dimensions_cols=common_dimensions_cols,
+                            )
+        print("Ingested data for:", mn, "... Timestream rejected record count:", len(rejected_records))
+        total_rejected_records = total_rejected_records + rejected_records
+        
+    print("Saved. Total rejected records:", len(total_rejected_records))
+    return total_rejected_records

@@ -2,6 +2,7 @@
 import 'source-map-support/register';
 import * as cdk from '@aws-cdk/core';
 import { WifidumperAppStack } from '../lib/wifidumper-app-stack';
+import { WifidumperInfraStack } from '../lib/wifidumper-infra-stack';
 
 const app = new cdk.App();
 new WifidumperAppStack(app, 'WifidumperAppStack', {
@@ -19,3 +20,5 @@ new WifidumperAppStack(app, 'WifidumperAppStack', {
 
   /* For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html */
 });
+
+new WifidumperInfraStack(app, "WifidumperInfraStack");

@@ -2,30 +2,30 @@ import * as cdk from '@aws-cdk/core';
 import * as iam from '@aws-cdk/aws-iam';
 import * as s3 from '@aws-cdk/aws-s3';
 import * as lambda from '@aws-cdk/aws-lambda';
-import { Duration } from '@aws-cdk/core';
+import { ContextProvider, Duration } from '@aws-cdk/core';
 import * as sqs from '@aws-cdk/aws-sqs';
 import * as s3n from '@aws-cdk/aws-s3-notifications';
+import * as ts from '@aws-cdk/aws-timestream';
 import * as lambdaEventSources from '@aws-cdk/aws-lambda-event-sources';
 import * as path from "path";
+import {WifidumperInfraStack} from "./wifidumper-infra-stack"
 
 export class WifidumperAppStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    const RAW_DATA_S3_BUCKET = 'wifidumper';
-    const RESULT_DATA_S3_BUCKET = 'wifidumper-result'
-
     // S3 source and target
     const rawDataS3Bucket = s3.Bucket.fromBucketName(
       this,
       "rawDataS3Bucket",
-      RAW_DATA_S3_BUCKET,
+      WifidumperInfraStack.RAW_DATA_S3_BUCKET,
     );
 
-    const resultS3Bucket = new s3.Bucket(this, RESULT_DATA_S3_BUCKET, {
-      bucketName:RESULT_DATA_S3_BUCKET,
-      removalPolicy: cdk.RemovalPolicy.RETAIN
-    });
+    const resultS3Bucket = s3.Bucket.fromBucketName(
+      this,
+      "resultDataS3Bucket",
+      WifidumperInfraStack.RESULT_DATA_S3_BUCKET,
+    );
 
     // SQS PART
     // dead queue for both AP Queue and Client Queue
@@ -56,8 +56,6 @@ export class WifidumperAppStack extends cdk.Stack {
         queue: deadLetterQueue
       }
     });
-
-
   
     // set up triggers from s3 new object to sqs 
     // AP 
@@ -84,10 +82,12 @@ export class WifidumperAppStack extends cdk.Stack {
       memorySize: 256,
       timeout: Duration.minutes(1),
       environment :{
-        "RESULT_DATA_S3_BUCKET" : RESULT_DATA_S3_BUCKET,
+        "RESULT_DATA_S3_BUCKET" : WifidumperInfraStack.RESULT_DATA_S3_BUCKET,
         "CHECK_TIME_FREQ" : "15T", //default 15min, 50% of data source freq, to avoid missing point in report
         "MAIN_REPORT_OUTPUT_KEY": "timeline-reports/ap.parquet", 
-        "SHORT_LIVE_REPORT_OUTPUT_KEY" : "timeline-reports/ap_shortlive.parquet"
+        "SHORT_LIVE_REPORT_OUTPUT_KEY" : "timeline-reports/ap_shortlive.parquet", 
+        "AP_TABLE" : WifidumperInfraStack.AP_TABLE,
+        "SHORTLIVE_AP_TABLE" : WifidumperInfraStack.SHORTLIVE_AP_TABLE
       }
     });
 
@@ -100,10 +100,12 @@ export class WifidumperAppStack extends cdk.Stack {
       memorySize: 256,
       timeout: Duration.minutes(1),
       environment :{
-        "RESULT_DATA_S3_BUCKET" : RESULT_DATA_S3_BUCKET,
+        "RESULT_DATA_S3_BUCKET" : WifidumperInfraStack.RESULT_DATA_S3_BUCKET,
         "CHECK_TIME_FREQ" : "10T", //default 15min if not override here
         "MAIN_REPORT_OUTPUT_KEY": "timeline-reports/client.parquet", 
-        "SHORT_LIVE_REPORT_OUTPUT_KEY" : "timeline-reports/client_shortlive.parquet"
+        "SHORT_LIVE_REPORT_OUTPUT_KEY" : "timeline-reports/client_shortlive.parquet",
+        "CLIENT_TABLE" : WifidumperInfraStack.CLIENT_TABLE,
+        "SHORTLIVE_CLIENT_TABLE" : WifidumperInfraStack.SHORTLIVE_CLIENT_TABLE
       }
     });
 
@@ -114,12 +116,22 @@ export class WifidumperAppStack extends cdk.Stack {
     const ClientEventSource = new lambdaEventSources.SqsEventSource(ClientFileUploadedEventQueue);
     ClientHandler.addEventSource(ClientEventSource);
 
-    // Permission of AP lambda to s3
+    // Permission of lambda to s3
     rawDataS3Bucket.grantRead(APHandler);
     resultS3Bucket.grantReadWrite(APHandler);
     rawDataS3Bucket.grantRead(ClientHandler);
     resultS3Bucket.grantReadWrite(ClientHandler);
 
+    //Permission of lambda to Timestream
+    // IAM policies
+    let ts_arn = "arn:aws:timestream:*:*:database/" + WifidumperInfraStack.TSDB_NAME + "/table/*"
+    const timeStreamPolicy = new iam.PolicyStatement({
+      actions: ["timestream:*"],
+      resources: [ts_arn]
+    });
+    APHandler.addToRolePolicy(timeStreamPolicy);
+    ClientHandler.addToRolePolicy(timeStreamPolicy);
+    
 
 
   }
