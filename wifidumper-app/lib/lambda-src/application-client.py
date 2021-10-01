@@ -87,10 +87,21 @@ def handler(event, context):
         report_df = get_report_df(clean_df, CHECK_TIME_FREQ)
         shortlive_report_df = get_short_live_df(clean_df, report_df, 'clientmac')
 
+        # to s3
         update_report_to_s3(report_df, main_report_key)
         update_report_to_s3(shortlive_report_df, shortlive_report_key)
 
-        resultMsg = f"Processed msg Id: {msgId} --> Main report added:{report_df.shape[0]}, Shortlive report added:{shortlive_report_df.shape[0]}"
+        # to timestream
+        measure_name_list = ['power', 'numpkts']
+        common_dimensions_cols = ['clientmac', 'firstseen', 'lastseen', 'fixed_bssid'] #TODO: 'fixed_probedSSID' cause error, need to fix
+    
+        rejected_ap = save_df_to_timestream(report_df, "check_time", measure_name_list, common_dimensions_cols, ['check_time'], TSDB_NAME, CLIENT_TABLE)
+        rejected_shortliveAP = save_df_to_timestream(shortlive_report_df, "firstseen", measure_name_list, common_dimensions_cols, [], TSDB_NAME, SHORTLIVE_CLIENT_TABLE)
+    
+
+        resultMsg = f"Processed msg Id: {msgId} --> Main report added:{len(report_df)}, Shortlive report added:{len(shortlive_report_df)}"
+        resultMsg = resultMsg + f" Rejected client records to timestream:{len(rejected_ap)}, rejected Shortlive AP records to timestream:{len(rejected_shortliveAP)}"
+        
         print(resultMsg)
 
         result_msg_list.append(resultMsg)
