@@ -12,6 +12,9 @@ CHECK_TIME_FREQ = os.getenv('CHECK_TIME_FREQ', '15T') #default 15min, 50% of dat
 RESULT_DATA_S3_BUCKET = os.getenv('RESULT_DATA_S3_BUCKET', 'wifidumperresult') 
 MAIN_REPORT_OUTPUT_KEY = os.getenv('MAIN_REPORT_OUTPUT_KEY', 'timeline-reports/client.parquet')
 SHORT_LIVE_REPORT_OUTPUT_KEY = os.getenv('SHORT_LIVE_REPORT_OUTPUT_KEY', 'timeline-reports/client_shortlive.parquet')
+TSDB_NAME = os.getenv('TSDB_NAME', 'wifidumperDB')
+CLIENT_TABLE = os.getenv('CLIENT_TABLE', 'clientTable')
+SHORTLIVE_CLIENT_TABLE = os.getenv('SHORTLIVE_CLIENT_TABLE', 'shortliveClientTable')
 
 s3 = boto3.client('s3')
 

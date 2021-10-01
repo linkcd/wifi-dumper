@@ -12,6 +12,10 @@ CHECK_TIME_FREQ = os.getenv('CHECK_TIME_FREQ', '15T') #default 15min, 50% of dat
 RESULT_DATA_S3_BUCKET = os.getenv('RESULT_DATA_S3_BUCKET', 'wifidumperresult') 
 MAIN_REPORT_OUTPUT_KEY = os.getenv('MAIN_REPORT_OUTPUT_KEY', 'timeline-reports/ap.parquet')
 SHORT_LIVE_REPORT_OUTPUT_KEY = os.getenv('SHORT_LIVE_REPORT_OUTPUT_KEY', 'timeline-reports/ap_shortlive.parquet')
+TSDB_NAME = os.getenv('TSDB_NAME', 'wifidumperDB')
+AP_TABLE = os.getenv('AP_TABLE', 'accessPointTable')
+SHORTLIVE_AP_TABLE = os.getenv('SHORTLIVE_AP_TABLE', 'shortliveAccessPointTable')
+
 
 s3 = boto3.client('s3')
 
@@ -96,7 +100,29 @@ def handler(event, context):
         update_report_to_s3(report_df, main_report_key)
         update_report_to_s3(shortlive_report_df, shortlive_report_key)
 
-        resultMsg = f"Processed msg Id: {msgId} --> Main report added:{report_df.shape[0]}, Shortlive report added:{shortlive_report_df.shape[0]}"
+        measure_name_list = ['dbpower']
+        common_dimensions_cols = ['firstseen',
+                                    'lastseen',
+                                    'bssid',
+                                    'channel',
+                                    'speed',
+                                    'privacy',
+                                    'cipher',
+                                    'authentication',
+                                    'beacons',
+                                    'iv',
+                                    'ip',
+                                    'idlen',
+                                    'essid',
+                                    'key']
+
+
+        rejected_ap = save_df_to_timestream(report_df, "check_time", measure_name_list, common_dimensions_cols, ['check_time'], TSDB_NAME, AP_TABLE)
+        rejected_shortliveAP = save_df_to_timestream(shortlive_report_df, "firstseen", measure_name_list, common_dimensions_cols, [], TSDB_NAME, SHORTLIVE_AP_TABLE)
+      
+        resultMsg = f"Processed msg Id: {msgId} --> Main report added:{len(report_df)}, Shortlive report added:{len(shortlive_report_df)}"
+        resultMsg = resultMsg + f" Rejected AP records to timestream:{len(rejected_ap)}, rejected Shortlive AP records to timestream:{len(rejected_shortliveAP)}"
+        
         print(resultMsg)
 
         result_msg_list.append(resultMsg)

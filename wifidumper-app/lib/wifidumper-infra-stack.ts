@@ -17,9 +17,11 @@ export class WifidumperInfraStack extends cdk.Stack {
     super(scope, id, props);
 
     const TABLE_RETENTION_POLICY = {
-        MemoryStoreRetentionPeriodInHours: (30 * 6).toString(10), //6 months
+        MemoryStoreRetentionPeriodInHours: (24 * 30 * 6).toString(10), //6 months
         MagneticStoreRetentionPeriodInDays: (365 * 3).toString(10) // 3 years
     }
+
+    const removalPolicy = cdk.RemovalPolicy.DESTROY
 
     // const resultS3Bucket = new s3.Bucket(this, WifidumperInfraStack.RESULT_DATA_S3_BUCKET, {
     //   bucketName:WifidumperInfraStack.RESULT_DATA_S3_BUCKET,
@@ -38,7 +40,7 @@ export class WifidumperInfraStack extends cdk.Stack {
       retentionProperties: TABLE_RETENTION_POLICY
     });
     apTable.node.addDependency(wifidumperTSDB);
-    apTable.applyRemovalPolicy(cdk.RemovalPolicy.RETAIN);
+    apTable.applyRemovalPolicy(removalPolicy);
 
     const shortliveAPTable = new ts.CfnTable(this, WifidumperInfraStack.SHORTLIVE_AP_TABLE,{
       databaseName: WifidumperInfraStack.TSDB_NAME, 
@@ -46,7 +48,7 @@ export class WifidumperInfraStack extends cdk.Stack {
       retentionProperties: TABLE_RETENTION_POLICY
     });
     shortliveAPTable.node.addDependency(wifidumperTSDB);
-    shortliveAPTable.applyRemovalPolicy(cdk.RemovalPolicy.RETAIN);
+    shortliveAPTable.applyRemovalPolicy(removalPolicy);
 
     const clientTable = new ts.CfnTable(this, WifidumperInfraStack.CLIENT_TABLE,{
       databaseName: WifidumperInfraStack.TSDB_NAME, 
@@ -54,7 +56,7 @@ export class WifidumperInfraStack extends cdk.Stack {
       retentionProperties: TABLE_RETENTION_POLICY
     });
     clientTable.node.addDependency(wifidumperTSDB);
-    clientTable.applyRemovalPolicy(cdk.RemovalPolicy.RETAIN);
+    clientTable.applyRemovalPolicy(removalPolicy);
 
     const shortliveClientTable = new ts.CfnTable(this, WifidumperInfraStack.SHORTLIVE_CLIENT_TABLE,{
       databaseName: WifidumperInfraStack.TSDB_NAME, 
@@ -62,7 +64,7 @@ export class WifidumperInfraStack extends cdk.Stack {
       retentionProperties: TABLE_RETENTION_POLICY
     });
     shortliveClientTable.node.addDependency(wifidumperTSDB);
-    shortliveClientTable.applyRemovalPolicy(cdk.RemovalPolicy.RETAIN);
+    shortliveClientTable.applyRemovalPolicy(removalPolicy);
 
   }
 }

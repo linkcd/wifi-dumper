@@ -86,6 +86,7 @@ export class WifidumperAppStack extends cdk.Stack {
         "CHECK_TIME_FREQ" : "15T", //default 15min, 50% of data source freq, to avoid missing point in report
         "MAIN_REPORT_OUTPUT_KEY": "timeline-reports/ap.parquet", 
         "SHORT_LIVE_REPORT_OUTPUT_KEY" : "timeline-reports/ap_shortlive.parquet", 
+        "TSDB_NAME": WifidumperInfraStack.TSDB_NAME,
         "AP_TABLE" : WifidumperInfraStack.AP_TABLE,
         "SHORTLIVE_AP_TABLE" : WifidumperInfraStack.SHORTLIVE_AP_TABLE
       }
@@ -104,6 +105,7 @@ export class WifidumperAppStack extends cdk.Stack {
         "CHECK_TIME_FREQ" : "10T", //default 15min if not override here
         "MAIN_REPORT_OUTPUT_KEY": "timeline-reports/client.parquet", 
         "SHORT_LIVE_REPORT_OUTPUT_KEY" : "timeline-reports/client_shortlive.parquet",
+        "TSDB_NAME": WifidumperInfraStack.TSDB_NAME,
         "CLIENT_TABLE" : WifidumperInfraStack.CLIENT_TABLE,
         "SHORTLIVE_CLIENT_TABLE" : WifidumperInfraStack.SHORTLIVE_CLIENT_TABLE
       }
@@ -123,14 +125,23 @@ export class WifidumperAppStack extends cdk.Stack {
     resultS3Bucket.grantReadWrite(ClientHandler);
 
     //Permission of lambda to Timestream
-    // IAM policies
-    let ts_arn = "arn:aws:timestream:*:*:database/" + WifidumperInfraStack.TSDB_NAME + "/table/*"
-    const timeStreamPolicy = new iam.PolicyStatement({
-      actions: ["timestream:*"],
-      resources: [ts_arn]
+    // TS general permission
+    const generalTimeStreamPolicy = new iam.PolicyStatement({
+      actions: ["timestream:DescribeEndpoints", "timestream:ListDatabases" ],
+      resources: ["*"]
     });
-    APHandler.addToRolePolicy(timeStreamPolicy);
-    ClientHandler.addToRolePolicy(timeStreamPolicy);
+
+    // DB and Table level permission
+    let wifidumper_ts_arn = "arn:aws:timestream:*:*:database/" + WifidumperInfraStack.TSDB_NAME + "*"
+    const wifidumperTimeStreamPolicy = new iam.PolicyStatement({
+      actions: ["timestream:*"],
+      resources: [wifidumper_ts_arn]
+    });
+
+    APHandler.addToRolePolicy(generalTimeStreamPolicy);
+    ClientHandler.addToRolePolicy(generalTimeStreamPolicy);
+    APHandler.addToRolePolicy(wifidumperTimeStreamPolicy);
+    ClientHandler.addToRolePolicy(wifidumperTimeStreamPolicy);
     
 
 
