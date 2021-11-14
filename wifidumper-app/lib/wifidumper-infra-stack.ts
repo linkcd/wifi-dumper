@@ -32,7 +32,7 @@ export class WifidumperInfraStack extends cdk.Stack {
     const wifidumperTSDB = new ts.CfnDatabase(this, WifidumperInfraStack.TSDB_NAME,{
         databaseName : WifidumperInfraStack.TSDB_NAME, 
     });
-    wifidumperTSDB.applyRemovalPolicy(cdk.RemovalPolicy.RETAIN);  // make sure DB is not deleted when stack is destroyed.
+    wifidumperTSDB.applyRemovalPolicy(removalPolicy);  // make sure DB is not deleted when stack is destroyed.
 
     const apTable = new ts.CfnTable(this, WifidumperInfraStack.AP_TABLE,{
       databaseName: WifidumperInfraStack.TSDB_NAME, 

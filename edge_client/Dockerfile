@@ -1,4 +1,4 @@
-# This docker image is built for raspberry pi 3b with debian 11 "bullseye" (64bit version)
+# This docker image is built for raspberry pi 3b with debian 11 "bullseye" (32bit version)
 FROM python:3.9.7-bullseye
 
 # Setup wifi tools
