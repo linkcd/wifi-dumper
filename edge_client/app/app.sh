@@ -6,21 +6,25 @@ if [[ -z "$INTERFACE_DEVICE_NAME" ]]; then
     echo "Environment variable INTERFACE_DEVICE_NAME is missing, exiting..." 1>&2
     exit 1
 fi
+echo "INTERFACE_DEVICE_NAME:" $INTERFACE_DEVICE_NAME
 
 if [[ -z "$REPORT_PERIOD" ]]; then
     echo "Environment variable REPORT_PERIOD is missing, exiting..." 1>&2
     exit 1
 fi
+echo "REPORT_PERIOD:" $REPORT_PERIOD
 
 if [[ -z "$S3_BUCKET_TARGET_AP" ]]; then
     echo "Environment variable S3_BUCKET_TARGET_AP is missing, exiting..." 1>&2
     exit 1
 fi
+echo "S3_BUCKET_TARGET_AP:" $S3_BUCKET_TARGET_AP
 
 if [[ -z "$S3_BUCKET_TARGET_CLIENT" ]]; then
     echo "Environment variable S3_BUCKET_TARGET_CLIENT is missing, exiting..." 1>&2
     exit 1
 fi
+echo "S3_BUCKET_TARGET_CLIENT:" $S3_BUCKET_TARGET_CLIENT
 
 if [[ -z "$AWS_ACCESS_KEY_ID" ]]; then
     echo "Environment variable AWS_ACCESS_KEY_ID is missing, exiting..." 1>&2
@@ -68,7 +72,7 @@ do
         echo "Uploaded successfully!" 
     else 
         echo "Could not upload to s3, exiting..." >&2
-        exit 1
+        #exit 1
     fi
 
     # Upload log file of client    
@@ -81,7 +85,7 @@ do
         echo "Uploaded successfully!" 
     else 
         echo "Could not upload to s3, exiting..." >&2
-        exit 1
+        #exit 1
     fi
 done 
 

@@ -43,6 +43,16 @@ iwconfig
 Its mode should be **monitor**, with default frequency 2.4G or 5G
 
 ----
+## Build wifi dumper docker image from source code
+```bash
+# build
+docker build -t linkcd/wifidumper-runner:buster .
+
+# publish to dockerhub
+docker login
+docker push linkcd/wifidumper-runner:buster
+```
+I have uploaded it to dockerhub, feel free to build and use your own image.
 
 ## Run wifi dumper docker image
 ```bash
