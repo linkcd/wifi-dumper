@@ -3,7 +3,7 @@
 - Wifi alfa awus036ach
 
 ## OS
-This image was built for Raspberry pi 3b with debian "bullseye" (32bit version)
+This image was built for Raspberry pi 3b with debian "buster" (32bit version)
 -----
 
 ## Install driver
@@ -46,7 +46,7 @@ Its mode should be **monitor**, with default frequency 2.4G or 5G
 
 ## Run wifi dumper docker image
 ```bash
-docker run --net="host" --privileged --restart always -e REPORT_PERIOD="30m" -e INTERFACE_DEVICE_NAME="wlan1" -e FORCE_KILL_TIME="5s" -e S3_BUCKET_TARGET_AP="<YOUR_OWN_VALUE>" -e S3_BUCKET_TARGET_CLIENT="<YOUR_OWN_VALUE>"  -e AWS_ACCESS_KEY_ID="<YOUR_OWN_VALUE>" -e AWS_SECRET_ACCESS_KEY="<YOUR_OWN_VALUE>" <YOUR_IMAGE_NAME>
+sudo docker run --net="host" --privileged --restart always -e REPORT_PERIOD="30m" -e INTERFACE_DEVICE_NAME="wlan1" -e FORCE_KILL_TIME="5s" -e S3_BUCKET_TARGET_AP="<YOUR_OWN_VALUE>" -e S3_BUCKET_TARGET_CLIENT="<YOUR_OWN_VALUE>"  -e AWS_ACCESS_KEY_ID="<YOUR_OWN_VALUE>" -e AWS_SECRET_ACCESS_KEY="<YOUR_OWN_VALUE>" <YOUR_IMAGE_NAME>
 ```
 ### Enable PI to have access to wifi interface
 ```bash
